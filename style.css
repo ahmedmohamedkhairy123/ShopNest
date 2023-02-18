@@ -111,3 +111,82 @@ footer {
     padding: 1rem;
     margin-top: auto;
 }
+
+/* --- Phase 2: Product Grid & Cards --- */
+
+.section-title {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+/* The Grid Layout */
+.product-grid {
+    display: grid;
+    /* responsive columns: auto-fit creates as many columns as fit */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* The Individual Card */
+.product-card {
+    background: var(--white);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /* Ensures image covers area without stretching */
+    background-color: #eee;
+}
+
+.product-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Pushes button to bottom if text is short */
+}
+
+.product-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.product-price {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.add-to-cart-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: auto;
+    /* Pushes button to the very bottom */
+    transition: background 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #34495e;
+}
