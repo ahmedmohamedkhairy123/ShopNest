@@ -1,4 +1,4 @@
-// 1. Product Data (Mock Database)
+// 1. Product Data
 const products = [
     {
         id: 1,
@@ -26,16 +26,17 @@ const products = [
     }
 ];
 
-// 2. Function to Render Products
+// 2. The Cart Array (State)
+let cart = [];
+
+// 3. Select DOM Elements
 const productList = document.getElementById('product-list');
+const cartCountElement = document.getElementById('cart-count');
 
+// 4. Render Products
 function displayProducts() {
-    // Clear existing content (optional here, but good practice)
     productList.innerHTML = "";
-
-    // Loop through the products array
     products.forEach(product => {
-        // Create the card HTML
         const productCard = `
             <div class="product-card">
                 <img src="${product.image}" alt="${product.name}" class="product-image">
@@ -46,16 +47,27 @@ function displayProducts() {
                 </div>
             </div>
         `;
-
-        // Add card to the grid container
         productList.innerHTML += productCard;
     });
 }
 
-// 3. Placeholder function for Phase 3
-function addToCart(id) {
-    console.log("Added product with ID:", id);
-    alert("Phase 3: Logic to add Item " + id + " to cart coming next!");
+// 5. Add to Cart Logic
+function addToCart(productId) {
+    const productToAdd = products.find(p => p.id === productId);
+    cart.push(productToAdd);
+
+    console.log("Cart is now:", cart);
+    updateCartCount();
+}
+
+// 6. Update Cart Count UI
+function updateCartCount() {
+    cartCountElement.innerText = cart.length;
+
+    cartCountElement.classList.add('bump');
+    setTimeout(() => {
+        cartCountElement.classList.remove('bump');
+    }, 300);
 }
 
 // Initialize the app
