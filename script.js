@@ -53,3 +53,54 @@ function updateCartCount() {
 // Initialize
 displayProducts();
 updateCartCount();
+/* --- Phase 5: Modal Logic --- */
+
+const modal = document.getElementById('cart-modal');
+const cartBtn = document.getElementById('cart-btn');
+const closeBtn = document.querySelector('.close-btn');
+const cartItemsList = document.getElementById('cart-items');
+const cartTotalElement = document.getElementById('cart-total');
+
+// Open Modal
+cartBtn.addEventListener('click', (e) => {
+    e.preventDefault(); // Stop page from jumping to top
+    renderCartItems(); // Update UI before showing
+    modal.style.display = 'block';
+});
+
+// Close Modal (X button)
+closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+// Close Modal (Click outside box)
+window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+// Render Cart Items inside Modal
+function renderCartItems() {
+    cartItemsList.innerHTML = ""; // Clear current list
+    let totalPrice = 0;
+
+    if (cart.length === 0) {
+        cartItemsList.innerHTML = "<p>Your cart is empty.</p>";
+    } else {
+        cart.forEach(item => {
+            totalPrice += item.price;
+
+            const li = document.createElement('li');
+            li.classList.add('cart-item');
+            li.innerHTML = `
+                <span>${item.name}</span>
+                <span>$${item.price.toFixed(2)}</span>
+            `;
+            cartItemsList.appendChild(li);
+        });
+    }
+
+    // Update Total Price
+    cartTotalElement.innerText = totalPrice.toFixed(2);
+}
