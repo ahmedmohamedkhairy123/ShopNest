@@ -289,3 +289,26 @@ footer {
     border-top: 2px solid var(--primary-color);
     padding-top: 10px;
 }
+
+/* --- Phase 6: Cart Polish --- */
+
+.item-info h4 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.remove-btn {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: var(--accent-color);
+    color: white;
+}

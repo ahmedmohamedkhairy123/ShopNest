@@ -31,25 +31,36 @@ function displayProducts() {
     });
 }
 
-// 5. Add to Cart Logic
+// Updated Add to Cart Logic (Phase 6)
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
-    cart.push(product);
 
-    saveCart();       // Save to storage
-    updateCartCount(); // Update UI
+    // Check if product is already in cart
+    const existingItem = cart.find(item => item.id === productId);
+
+    if (existingItem) {
+        // If it exists, just increase quantity
+        existingItem.quantity++;
+    } else {
+        // If new, add it with quantity 1
+        // We use { ...product } to create a copy so we don't mess up the original list
+        cart.push({ ...product, quantity: 1 });
+    }
+
+    saveCart();
+    updateCartCount();
 }
 
 // 6. Save Logic
 function saveCart() {
     localStorage.setItem('shopnest_cart', JSON.stringify(cart));
 }
-
-// 7. Update Cart Count UI
 function updateCartCount() {
-    cartCountElement.innerText = cart.length;
+    // Calculate total quantity (e.g., 2 watches + 1 camera = 3 items)
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const cartCountElement = document.getElementById('cart-count');
+    cartCountElement.innerText = totalCount;
 }
-
 // Initialize
 displayProducts();
 updateCartCount();
@@ -80,27 +91,48 @@ window.addEventListener('click', (e) => {
     }
 });
 
-// Render Cart Items inside Modal
 function renderCartItems() {
-    cartItemsList.innerHTML = ""; // Clear current list
+    cartItemsList.innerHTML = "";
     let totalPrice = 0;
+    let totalItems = 0; // To count total quantity for the badge
 
     if (cart.length === 0) {
         cartItemsList.innerHTML = "<p>Your cart is empty.</p>";
     } else {
         cart.forEach(item => {
-            totalPrice += item.price;
+            // Calculate total price based on quantity
+            const itemTotal = item.price * item.quantity;
+            totalPrice += itemTotal;
+            totalItems += item.quantity; // Sum up quantities
 
             const li = document.createElement('li');
             li.classList.add('cart-item');
             li.innerHTML = `
-                <span>${item.name}</span>
-                <span>$${item.price.toFixed(2)}</span>
+                <div class="item-info">
+                    <h4>${item.name}</h4>
+                    <p>$${item.price.toFixed(2)} x ${item.quantity} = <strong>$${itemTotal.toFixed(2)}</strong></p>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
             `;
             cartItemsList.appendChild(li);
         });
     }
 
-    // Update Total Price
+    // Update the Total Price in the modal
     cartTotalElement.innerText = totalPrice.toFixed(2);
+
+    // Update the Cart Count Badge (Header) to show total ITEMS, not just rows
+    // (Optional: Update the global counter here or in updateCartCount)
+    // Let's make sure the badge reflects total quantity:
+    const cartCountElement = document.getElementById('cart-count');
+    cartCountElement.innerText = totalItems;
+}
+// Remove Item from Cart
+function removeFromCart(productId) {
+    // Filter out the item with the matching ID
+    cart = cart.filter(item => item.id !== productId);
+
+    saveCart();
+    updateCartCount();
+    renderCartItems(); // Re-render the modal to show the item is gone
 }
