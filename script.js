@@ -136,3 +136,28 @@ function removeFromCart(productId) {
     updateCartCount();
     renderCartItems(); // Re-render the modal to show the item is gone
 }
+/* --- Phase 7: Checkout Logic --- */
+
+const checkoutSection = document.getElementById('checkout-section');
+const productsSection = document.getElementById('products');
+const checkoutTotalElement = document.getElementById('checkout-total');
+
+// Function called when clicking "Checkout" in the Modal
+function goToCheckout() {
+    // 1. Close the modal
+    modal.style.display = 'none';
+
+    // 2. Hide Products, Show Checkout
+    productsSection.style.display = 'none';
+    checkoutSection.style.display = 'block';
+
+    // 3. Update total in the form
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    checkoutTotalElement.innerText = total.toFixed(2);
+}
+
+// Function to go back to shop
+function returnToShop() {
+    checkoutSection.style.display = 'none';
+    productsSection.style.display = 'block'; // Or 'grid' depending on your layout, usually block works for containers
+}
