@@ -159,5 +159,46 @@ function goToCheckout() {
 // Function to go back to shop
 function returnToShop() {
     checkoutSection.style.display = 'none';
-    productsSection.style.display = 'block'; // Or 'grid' depending on your layout, usually block works for containers
+    productsSection.style.display = 'grid'; // Use 'grid' instead of 'block'
 }
+/* --- Phase 8: Order Submission --- */
+
+const checkoutForm = document.getElementById('checkout-form');
+const thankYouMessage = document.getElementById('thank-you-message');
+
+// Listen for the form submission
+checkoutForm.addEventListener('submit', (e) => {
+    // Prevent the form from actually submitting and reloading the page
+    e.preventDefault();
+
+    // 1. Get user data (optional for now, but good practice)
+    const name = document.getElementById('name').value;
+    if (!name) { // Simple validation
+        alert("Please enter your full name.");
+        return;
+    }
+
+    // 2. Hide the form and show the thank you message
+    checkoutForm.style.display = 'none';
+    thankYouMessage.style.display = 'block';
+
+    // 3. Clear the cart
+    cart = []; // Empty the array
+    saveCart(); // Update localStorage to be empty
+    updateCartCount(); // Update the header badge to 0
+
+    // 4. After a few seconds, go back to the shop
+    setTimeout(() => {
+        // Hide thank you message and checkout section
+        thankYouMessage.style.display = 'none';
+        checkoutSection.style.display = 'none';
+
+        // Show the products again
+        productsSection.style.display = 'grid'; // Use 'grid' to restore product layout
+
+        // Reset the form for the next purchase
+        checkoutForm.reset();
+        checkoutForm.style.display = 'block';
+
+    }, 3000); // Wait 3 seconds (3000 milliseconds)
+});

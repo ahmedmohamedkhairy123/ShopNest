@@ -23,20 +23,13 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Welcome to ShopNest</h1>
-            <p>The best products at the best prices. Simple, fast, and secure.</p>
-            <button class="btn-primary">Shop Now</button>
-        </div>
-    </section>
-
-    <!-- Product Placeholder (We will fill this in Phase 2) -->
+    <!-- Product Placeholder -->
     <main id="products" class="container">
         <h2 class="section-title">Featured Products</h2>
         <!-- The Product Grid: JS will inject cards here -->
         <div id="product-list" class="product-grid"></div>
     </main>
+
     <!-- Checkout Section (Hidden by default) -->
     <section id="checkout-section" class="container" style="display: none;">
         <h2 class="section-title">Checkout</h2>
@@ -65,7 +58,22 @@
                 <button type="button" class="remove-btn" onclick="returnToShop()"
                     style="width: 100%; margin-top: 10px; text-align:center;">Cancel</button>
             </form>
+
+            <!-- NEW: Add this thank you message -->
+            <div id="thank-you-message" style="display: none; text-align: center;">
+                <h2>Thank You For Your Order!</h2>
+                <p>Your items will be shipped soon.</p>
+            </div>
+
         </div>
+    </section>
+    <h3>Total to Pay: $<span id="checkout-total">0.00</span></h3>
+
+    <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Place Order</button>
+    <button type="button" class="remove-btn" onclick="returnToShop()"
+        style="width: 100%; margin-top: 10px; text-align:center;">Cancel</button>
+    </form>
+    </div>
     </section>
     <!-- Footer -->
     <footer>
