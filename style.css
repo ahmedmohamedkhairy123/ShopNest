@@ -347,3 +347,49 @@ footer {
     height: 80px;
     resize: vertical;
 }
+
+/* --- Phase 9: Responsive Design --- */
+
+@media (max-width: 768px) {
+
+    /* --- General --- */
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    /* --- Header / Navbar --- */
+    .navbar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+        height: 300px;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* --- Product Grid --- */
+    .product-grid {
+        /* On mobile, force one column for better spacing */
+        grid-template-columns: 1fr;
+    }
+
+    /* --- Modal --- */
+    .modal-content {
+        /* Give more screen space on mobile */
+        width: 95%;
+        margin-top: 20%;
+    }
+}
