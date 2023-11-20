@@ -202,3 +202,20 @@ checkoutForm.addEventListener('submit', (e) => {
 
     }, 3000); // Wait 3 seconds (3000 milliseconds)
 });
+/* --- Phase 10: Polish --- */
+const topBtn = document.getElementById('back-to-top-btn');
+
+// Show button when user scrolls down 100px
+window.onscroll = function () {
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        topBtn.style.display = "block";
+    } else {
+        topBtn.style.display = "none";
+    }
+};
+
+// Scroll to top when button is clicked
+topBtn.addEventListener('click', () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+});
